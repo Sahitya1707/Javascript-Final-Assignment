@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Patrick+Hand+SC&family=Protest+Riot&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Ultra&display=swap");
+:root {
+  --bg-clr: #2244bb;
+  --main-clr: white;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+  background-color: var(--bg-clr);
+}
+section {
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weather {
+  width: 60%;
+}
+.search-currentCity {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1rem;
+  justify-content: space-between;
+}
+.city-date h3 {
+  font-size: 3rem;
+  font-weight: normal;
+  letter-spacing: 0.1rem;
+}
+.city-date .date {
+  letter-spacing: 0.05rem;
+  font-size: 1.2rem;
+}
+.current-weather-data {
+  display: flex;
+  justify-content: space-between;
+}
+.current-temperature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-right: 2px solid var(--main-clr); */
+  gap: 1rem 1rem;
+  padding: 1rem;
+}
+.current-weather-icon {
+  height: 10rem;
+  width: 10rem;
+}
+.other-weather-data {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.other-weather-data p {
+  font-size: 1.5rem;
+}
+.searchbox {
+  padding: 0.5rem 0.5rem;
+  border-radius: 5px;
+  background-color: var(--main-clr);
+  margin-left: 1rem;
+}
+.search-btn {
+  padding: 0.5rem 2rem;
+  background-color: var(--main-clr);
+  color: var(--bg-clr);
+}

@@ -2,6 +2,9 @@
 :root {
   --bg-clr: #2244bb;
   --main-clr: white;
+  --black: black;
+  --black-opacity: rgba(0, 0, 0, 0.249);
+  --clr-1: #71f9a0;
 }
 * {
   margin: 0;
@@ -23,7 +26,7 @@ section {
 }
 .search-currentCity {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 1rem 1rem;
   justify-content: space-between;
 }
@@ -61,14 +64,39 @@ section {
 .other-weather-data p {
   font-size: 1.5rem;
 }
-.searchbox {
-  padding: 0.5rem 0.5rem;
+.searchBox {
+  padding: 1rem 0.5rem;
   border-radius: 5px;
   background-color: var(--main-clr);
   margin-left: 1rem;
+
+  border: 2px solid black;
 }
 .search-btn {
-  padding: 0.5rem 2rem;
+  padding: 1rem 2rem;
   background-color: var(--main-clr);
   color: var(--bg-clr);
+  cursor: pointer;
+}
+.search {
+  position: relative;
+}
+.searched-city {
+  position: absolute;
+  left: 20px;
+  background-color: var(--main-clr);
+  z-index: 1000;
+}
+.searched-city p {
+  background-color: var(--main-clr);
+  color: black;
+  padding: 0.5rem;
+  width: 15rem;
+  border-bottom: 1px solid var(--black);
+}
+.searched-city p:hover,
+.search-btn:hover {
+  cursor: pointer;
+  background-color: var(--clr-1);
+  transition: 0.3s ease-in-out;
 }

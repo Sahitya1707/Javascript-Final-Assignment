@@ -1,5 +1,12 @@
 // my api key, although it's not good idea to share api key but I am doing this only for the assignment
 const apiKey = `e0a94e96a35ab53298c6e02bbfce980b`;
+// gettin date
+const date = new Date().toLocaleDateString("en-us", {
+  weekday: "long",
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
 
 // this is end point for the api to get the city name
 let cityData;
@@ -8,8 +15,8 @@ let cityArray = [];
 let cityUrlEndpoint = `https://api.openweathermap.org/geo/1.0/direct?q=${searchCity}&limit=5&appid=${apiKey}`;
 
 // this is end point for the getting the weather data
-let latitude;
-let longitude;
+let latitude = 44.3893113;
+let longitude = -79.6901736;
 let weatherData;
 let weatherUrlEndpoint = ` https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
@@ -17,9 +24,19 @@ let weatherUrlEndpoint = ` https://api.openweathermap.org/data/2.5/weather?lat=$
 const searchBox = document.querySelector(".searchBox");
 const searchResults = document.querySelector(".searched-city");
 const searchBtn = document.querySelector(".search-btn");
+const cityHeading = document.querySelector(".city-date h3");
+const dateElement = document.querySelector(".date");
+const currentTemperature = document.querySelector(".current-temperature p");
+const currentWeatherIcon = document.querySelector(".current-weather-icon");
+const feelsLikeTemperature = document.querySelector(".feels-like");
+const weatherLike = document.querySelector(".weather-detail");
+// console.log(currentTemperature);
+// console.log(currentWeatherIcon.src);
+
 // setting the searchresult children to empty
 searchResults.innerHTML = ``;
 let individualSearchResult;
+dateElement.innerHTML = date;
 
 // creating a function that will get us the data while fetching the url
 const getData = async (endpointUrl) => {
@@ -76,10 +93,10 @@ searchBox.addEventListener("keyup", async (e) => {
               item.innerHTML.toLowerCase()
             );
           });
-          console.log(clickedData);
+          // console.log(clickedData);
           longitude = clickedData[0].lon;
           latitude = clickedData[0].lat;
-          console.log(clickedData[0].lat);
+          // console.log(clickedData[0].lat);
           searchCity = clickedData[0].name;
           searchBox.value = e.target.innerText;
 
@@ -94,17 +111,34 @@ searchBox.addEventListener("keyup", async (e) => {
 
 // when we click the search events
 searchBtn.addEventListener("click", async (e) => {
-  console.log(e);
-  console.log(searchBox.innerHTML);
   if (searchBox.innerHTML !== " ") {
-    weatherUrlEndpoint = ` https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-    weatherData = await getData(weatherUrlEndpoint);
-    console.log(weatherData);
-    console.log(weatherUrlEndpoint);
+    getDataWeather();
   }
 });
 
 // ------------------------------------------------------
+// getting data while loading the homepage
+const getDataWeather = async () => {
+  // using cors proxy (to unblock cors) to get the data
+  weatherUrlEndpoint = `https://corsproxy.io/?https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  weatherData = await getData(weatherUrlEndpoint);
+  // console.log(weatherData);
+  // console.log(weatherUrlEndpoint);
+  // console.log(cityHeading);
+  cityHeading.innerHTML = `${weatherData.name}, ${weatherData.sys.country}`;
+  currentTemperature.innerHTML = ` ${(weatherData.main.temp - 274.15).toFixed(
+    2
+  )}°C`;
+  feelsLikeTemperature.innerHTML = `Feels Like: ${(
+    weatherData.main.feels_like - 274.15
+  ).toFixed(2)}°C`;
+  weatherLike.innerHTML = `${weatherData.weather[0].description}`;
+
+  currentWeatherIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+  // console.log(weatherData.weather[0]);
+  // console.log(currentWeatherIcon.src);
+};
+getDataWeather();
 // ------------------------------------------------------
 // ------------------------------------------------------
 // ------------------------------------------------------
@@ -112,12 +146,7 @@ const getWeatherData = async () => {
   const data = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=london&limit=10&appid=${apiKey}`,
     {
-      //   method: "GET",
       mode: "cors",
-      //   header: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(data),
     }
   )
     .then((response) => {
@@ -127,7 +156,7 @@ const getWeatherData = async () => {
       console.log(error);
     });
 
-  console.log(data);
+  // console.log(data);
 };
 // weatherData();
 
